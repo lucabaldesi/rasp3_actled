@@ -1,0 +1,27 @@
+#!/bin/bash
+
+help()
+{
+	echo "Usage: $0 {on|off}"
+	exit 1;
+}
+
+if [ $# -lt 1 ]; then
+	help
+fi
+
+case $1 in
+	"on")
+		echo "Turning ACT led on"
+		echo gpio | tee /sys/class/leds/led0/trigger > /dev/null
+		echo 1 | tee /sys/class/leds/led0/brightness > /dev/null
+		;;
+	"off")
+		echo "Turning ACT led off"
+		echo gpio | tee /sys/class/leds/led0/trigger > /dev/null
+		echo 0 | tee /sys/class/leds/led0/brightness > /dev/null
+		;;
+	*)
+		help
+		;;
+esac
